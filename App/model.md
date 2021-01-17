@@ -99,7 +99,7 @@ returns
 
 ***PATCH   /servers/{id}***
 ```css
-PATCH /wrsftims/1
+PATCH /servers/1
 {
     {
         "name": "Karol Wojtyła",
@@ -115,6 +115,6 @@ returns
 ```
 ***DELETE   /servers/{id}***
 ```css
-DELETE /wrsftims/1``````d
+DELETE /servers/1``````d
 returns "", 200
 ```
