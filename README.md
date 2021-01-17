@@ -16,13 +16,19 @@ returns
 {
     {
         "id": 0
-        "name": "Roman Dmowski",
-        "rank": "Sekcja IT"
+        "name": "User1",
+        "ranks": [
+            "name": "rank1",
+            "name": "rank2"
+        ]
     },
     {
         "id": 1
-        "name": "Karol Wojtyła",
-        "rank": ["Sekcja duchowna"
+        "name": "User2",
+        "ranks": [
+            "name": "rank3",
+            "name": "rank1"
+        ]
     }
 } , 200
 ```
@@ -31,9 +37,12 @@ returns
 returns
 {
    {
-        "id": 1
-        "name": "Karol Wojtyła",
-        "rank": "Sekcja duchowna"
+        "id": 1,
+        "name": "User1",
+        "ranks": [
+            "name": "rank1",
+            "name": "rank2"
+        ]
     }
 } , 200
 ```
@@ -41,27 +50,39 @@ returns
 ```
 {
     {
-        "name": "Roman Dmowski",
-        "rank": "Sekcja IT"
+        "name": "User1",
+        "ranks": [
+            "name": "rank1",
+            "name": "rank2"
+        ]
     }
 }
-``` ```
+
+
+
 returns "", 201
 ```
 **PATCH /{server}/users/{id}**
 ```
 {
     {
-        "name": "Karol Wojtyła",
-        "rank": "GMD"
+        "ranks": [
+            "name": "rank3",
+            "name": "rank2"
+        ]
     }
 }
-``` ```
+
+
+
 returns
 {
     {
-        "name": "Karol Wojtyła",
-        "rank": "Sekcja Księżąt ;P"
+        "name": "User1",
+        "ranks": [
+            "name": "rank3",
+            "name": "rank2"
+        ]
     }
 }, 200
 ```
@@ -79,15 +100,12 @@ returns "", 200
 returns
 {
     {
-        "name": "WRS ftims",
-        "picture": "{url}",
-        "users": [
-            
-        ]
+        "name": "Server1",
+        "logging": True
     },
     {
-        "name": "Seria Turniejów WRS WFTIMS 2",
-        "picture": "{url}"
+        "name": "Server2",
+        "logging": False
     }
 }, 200
 ```
@@ -102,14 +120,15 @@ returns
 ```
 {
     {
-        "name": "Karol Wojtyła",
+        "name": "Server1",
     }
 }
 ``` ```
 returns
 {
     {
-        "name": "Karol Wojtyła",
+        "name": "Server1",
+        "logging": True
     }
 }, 200
 ```
