@@ -1,2 +1,3 @@
 .env
 App/database.db
+.vscode
