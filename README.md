@@ -1,4 +1,4 @@
-### DiscordAutoRankAdder
+# DiscordAutoRankAdder
 
 ***To Do***
 - request adding to server
@@ -7,7 +7,7 @@
 - log in via discord
 
 
-#Users
+##  Users
 
 
 **Get /{server}/users**
@@ -30,7 +30,7 @@ returns
 ```
 returns
 {
-    {
+   {
         "id": 1
         "name": "Karol Wojtyła",
         "rank": "Sekcja duchowna"
@@ -71,7 +71,7 @@ returns "", 200
 ```
 
 
-#Servers
+## Servers
 
 
 **Get /servers**
