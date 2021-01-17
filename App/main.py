@@ -61,7 +61,7 @@ class Rank(db.Model):
         return f'Rank(name = {Rank.name}'
 
 
-db.create_all()
+#db.create_all()
 
 server_resource_fields = {
     'id': fields.Integer,
