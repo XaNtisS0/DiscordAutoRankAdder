@@ -126,7 +126,7 @@ people = [
   {
     "username": "VarmM",
     "rank": "lol5v5",
-    "changeUser": "VarmΜ"
+    "changeUser": "VarmM"
   },
   {
     "username": "Vejlen",
@@ -334,7 +334,7 @@ async def on_member_join(member):
       await channel.send("Changed username to: " + member.display_name)
   if not ranks:
     print("Unknown user: " + str(member.name))
-    await channel.send(f'{organizator_role.mention} {moderator_role.mention} Unknown user: {str(member.name)}')
+    await channel.send(f'{organizator_role.mention} {moderator_role.mention} Unknown user: {str(member.mention)}')
   print("")
     
 keep_alive()
