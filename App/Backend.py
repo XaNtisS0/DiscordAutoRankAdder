@@ -123,3 +123,24 @@ class Users(Resource):
         return "", 201
 
 api.add_resource(Users, endpoint="/<int:serv_id>/Users")
+
+class UsersWithId(Resource):
+    @marshal_with(user_resource_fields)
+    def patch(self, serv_id, user_id):
+        args = user_update_args.parse_args()
+        result = UserModel.query.filter_by(id = user_id, server_id = serv_id).first()
+        if not result:
+            abort(404, message="User with this id does not exist.")
+        for arg in args:
+            if arg:
+                result.arg = arg
+
+        db.session.commit()
+        return result, 200
+
+    def delete(self, serv_id, user_id):
+        result = UserModel.query.filter_by(id = user_id, server_id = serv_id)
+        if not result:
+            abort(404,message="User with this id does not exist.")
+        db.session.delete(result)
+        return "", 200
