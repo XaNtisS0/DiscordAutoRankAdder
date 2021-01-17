@@ -95,6 +95,14 @@ class ServerID(Resource):
         db.session.commit()
         return result, 200
 
+    def delete(self, server_id):
+        args = server_update_args.parse_args()
+        result = ServerModel.query.filter_by(id = server_id).first()
+        if not result:
+            abort(404, message="Server with this id does not exist.")
+        db.session.delete(result)
+        return "", 200
+
 
 class Users(Resource):
     @ marshal_with(user_resource_fields)
