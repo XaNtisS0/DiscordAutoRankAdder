@@ -1,3 +1,4 @@
+import logging
 from flask import Flask
 from flask_restful import Api, Resource, reqparse, abort, fields, marshal_with
 from flask_sqlalchemy import SQLAlchemy
@@ -12,6 +13,7 @@ db = SQLAlchemy(app)
 class Server(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
+    logging = db.Column(db.Boolean, nullable=False)
     users = db.relationship(
         'User', backref=db.backref('server', lazy=True))
 
@@ -21,9 +23,11 @@ class Server(db.Model):
 
 server_post_args = reqparse.RequestParser()
 server_post_args.add_argument('name', type=str, required=True)
+server_post_args.add_argument('logging', type=bool, required=True)
 
 server_update_args = reqparse.RequestParser()
 server_update_args.add_argument('name', type=str)
+server_update_args.add_argument('logging', type=bool)
 
 
 class User(db.Model):
@@ -61,11 +65,12 @@ class Rank(db.Model):
         return f'Rank(name = {Rank.name}'
 
 
-#db.create_all()
+# db.create_all() creates tables for database
 
 server_resource_fields = {
     'id': fields.Integer,
-    'name': fields.String
+    'name': fields.String,
+    'logging': fields.Boolean
 }
 
 user_resource_fields = {
@@ -85,7 +90,7 @@ class Servers(Resource):
 
     def post(self):
         args = server_post_args.parse_args()
-        server = Server(name=args['name'])
+        server = Server(name=args['name'], logging=args['logging'])
         db.session.add(server)
         db.session.commit()
         return "", 201
