@@ -5,6 +5,7 @@
 - admin approval of adding
 - user authentication
 - log in via discord
+- set some ranks to be automaticly added to users added to the server (front-end)
 
 
 ##  Users
@@ -49,13 +50,11 @@ returns
 **POST /{server}/users**
 ```
 {
-    {
-        "name": "User1",
-        "ranks": [
-            "name": "rank1",
-            "name": "rank2"
-        ]
-    }
+    "name": "User1",
+    "ranks": [
+        "rank1",
+        "rank2"
+    ]
 }
 
 
@@ -98,38 +97,37 @@ returns "", 200
 **Get /servers**
 ```
 returns
-{
+[
     {
-        "name": "Server1",
-        "logging": True
+        "id": 1,
+        "name": "My new server",
+        "logging": true
     },
     {
-        "name": "Server2",
-        "logging": False
+        "id": 2,
+        "name": "TestServer2",
+        "logging": false
     }
-}, 200
+], 200
 ```
 
 **POST /servers**
 ```
 returns
-"", 200
+"", 201
 ```
 
 **PATCH /servers/{id}**
 ```
 {
-    {
-        "name": "Server1",
-    }
+    "name": "TestServer1"
 }
 ``` ```
 returns
 {
-    {
-        "name": "Server1",
-        "logging": True
-    }
+    "id": 1,
+    "name": "TestServer1",
+    "logging": true
 }, 200
 ```
 **DELETE /servers/{id}**
