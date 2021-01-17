@@ -92,7 +92,7 @@ class Server(Resource):
         return "", 201
 
 
-api.add_resource(Server, endpoint="/servers")
+api.add_resource(Server, "/servers")
 
 
 class ServerWithId(Resource):
@@ -117,7 +117,7 @@ class ServerWithId(Resource):
         return "", 200
 
 
-api.add_resource(ServerWithId, endpoint="/servers/<int:server_id>")
+api.add_resource(ServerWithId,"/servers/<int:server_id>")
 
 
 class Users(Resource):
@@ -138,7 +138,7 @@ class Users(Resource):
         return "", 201
 
 
-api.add_resource(Users, endpoint="/<int:serv_id>/Users")
+api.add_resource(Users, "/<int:serv_id>/Users")
 
 
 class UsersWithId(Resource):
@@ -164,7 +164,7 @@ class UsersWithId(Resource):
         return "", 200
 
 
-api.add_resource(UsersWithId, endpoint="/<int:serv_id>/Users/<int:user_id>")
+api.add_resource(UsersWithId, "/<int:serv_id>/Users/<int:user_id>")
 
 if __name__ == "__main__":
     app.run(debug=True)
