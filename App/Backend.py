@@ -80,14 +80,16 @@ class Server(Resource):
         db.session.add(server)
         db.session.commit()
         return "", 201
-    
+
+
 api.add_resource(Server, endpoint="/servers")
+
 
 class ServerWithId(Resource):
     @marshal_with(server_resource_fields)
     def patch(self, server_id):
         args = server_update_args.parse_args()
-        result = ServerModel.query.filter_by(id = server_id).first()
+        result = ServerModel.query.filter_by(id=server_id).first()
         if not result:
             abort(404, message="Server with this id does not exist.")
         if args['name']:
@@ -98,14 +100,15 @@ class ServerWithId(Resource):
         return result, 200
 
     def delete(self, server_id):
-        args = server_update_args.parse_args()
-        result = ServerModel.query.filter_by(id = server_id).first()
+        result = ServerModel.query.filter_by(id=server_id).first()
         if not result:
             abort(404, message="Server with this id does not exist.")
         db.session.delete(result)
         return "", 200
 
+
 api.add_resource(ServerWithId, endpoint="/servers/<int:server_id>")
+
 
 class Users(Resource):
     @ marshal_with(user_resource_fields)
@@ -122,13 +125,16 @@ class Users(Resource):
         db.session.commit()
         return "", 201
 
+
 api.add_resource(Users, endpoint="/<int:serv_id>/Users")
+
 
 class UsersWithId(Resource):
     @marshal_with(user_resource_fields)
     def patch(self, serv_id, user_id):
         args = user_update_args.parse_args()
-        result = UserModel.query.filter_by(id = user_id, server_id = serv_id).first()
+        result = UserModel.query.filter_by(
+            id=user_id, server_id=serv_id).first()
         if not result:
             abort(404, message="User with this id does not exist.")
         for arg in args:
@@ -139,10 +145,11 @@ class UsersWithId(Resource):
         return result, 200
 
     def delete(self, serv_id, user_id):
-        result = UserModel.query.filter_by(id = user_id, server_id = serv_id)
+        result = UserModel.query.filter_by(id=user_id, server_id=serv_id)
         if not result:
-            abort(404,message="User with this id does not exist.")
+            abort(404, message="User with this id does not exist.")
         db.session.delete(result)
         return "", 200
+
 
 api.add_resource(UsersWithId, endpoint="/<int:serv_id>/Users/<int:user_id>")
