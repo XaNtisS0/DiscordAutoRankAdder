@@ -43,9 +43,9 @@ POST /wrsftims/users
 ``````d
 returns "", 201
 ```
-***PATH   /{server}/users/{id}***
+***PATCH   /{server}/users/{id}***
 ```css
-PATH /wrsftims/users/1
+PATCH /wrsftims/users/1
 {
     {
         "name": "Karol Wojtyła",
@@ -95,4 +95,26 @@ POST /servers
 ``````d
 returns
 "", 200
+```
+
+***PATCH   /servers/{id}***
+```css
+PATCH /wrsftims/1
+{
+    {
+        "name": "Karol Wojtyła",
+    }
+}
+``````d
+returns
+{
+    {
+        "name": "Karol Wojtyła",
+    }
+}, 200
+```
+***DELETE   /servers/{id}***
+```css
+DELETE /wrsftims/1``````d
+returns "", 200
 ```
