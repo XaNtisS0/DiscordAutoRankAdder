@@ -37,6 +37,7 @@ async def on_member_join(member):
 	#If loged in user is on the list of users then give him the roles from list
 	#If not then log info about unwanted user with mention to members admin and the unwanted user. 
 	#	(f'{moderator_role.mention} Unknown user: {str(member.mention)}')
+	#	send information to user that he need to contact administrator to change username in whitelist or manually add role
 
 	'''organizator_role = discord.utils.get(
 		member.guild.roles, id=695296019138609223)
