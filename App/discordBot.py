@@ -5,10 +5,23 @@ intents = discord.Intents.default()
 intents.members = True
 client = discord.Client(intents=intents)
 
+#Permisions:
+#	Manage roles
+#	Manage channels
+#	View channels
+#	Send messages
+#	Mention everyone
+
+#What admin should do before adding:
+#	Add users and roles to them.
+#	Add role with name 'members-admin'
+#	Add channel with name 'members-bot-log'
+
 
 @client.event
 async def on_ready():
 	channel = discord.utils.get(client.get_all_channels(), name='bot-log')
+	#if not channel then create channel with name = 'bot-log'
 	print('We have logged in as {0.user}'.format(client))
 	await channel.send('We have logged in as {0.user}'.format(client))
 
@@ -16,7 +29,7 @@ async def on_ready():
 @client.event
 async def on_member_join(member):
 	#Get server name
-	#Create or get members admin role
+	#Create or get members-admin role
 	#Get api/servers/
 	#Check which server is the one we want and save info
 	#If user wants logging -> Get channel with name="bot-log" for logging
