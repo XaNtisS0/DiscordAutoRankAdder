@@ -118,6 +118,7 @@ class ServersWithId(Resource):
         if not result:
             abort(404, message="Server with this id does not exist.")
         db.session.delete(result)
+        db.session.commit()
         return "", 200
 
 
@@ -134,7 +135,8 @@ class Users(Resource):
         args = user_post_args.parse_args()
         users_in_server = Server.query.filer_by(id=serv_id)
         user = User(username=args['username'], ranks=args['ranks'])
-        for item in args['ranks']:
+        for rank in args['ranks']:
+            item = Rank(name = rank)
             user.ranks.append(item)
         users_in_server.users.append(user)
         db.session.add(users_in_server)
@@ -142,7 +144,7 @@ class Users(Resource):
         return "", 201
 
 
-api.add_resource(Users, "/<int:serv_id>/Users")
+api.add_resource(Users, "/<int:serv_id>/users")
 
 
 class UsersWithId(Resource):
@@ -167,7 +169,7 @@ class UsersWithId(Resource):
         return "", 200
 
 
-api.add_resource(UsersWithId, "/<int:serv_id>/Users/<int:user_id>")
+api.add_resource(UsersWithId, "/<int:serv_id>/users/<int:user_id>")
 
 if __name__ == "__main__":
     app.run(debug=True)
