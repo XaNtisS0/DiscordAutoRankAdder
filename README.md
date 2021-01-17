@@ -10,8 +10,6 @@
 
 **Get /{server}/users**
 ```
-GET /wrsftims/users
-``````
 returns
 {
     {
@@ -22,14 +20,12 @@ returns
     {
         "id": 1
         "name": "Karol Wojtyła",
-        "rank": "Sekcja duchowna"
+        "rank": ["Sekcja duchowna"
     }
 } , 200
 ```
 **GET /{server}/users/{id}**
 ```
-GET /wrsftims/users/1
-``````
 returns
 {
     {
@@ -41,26 +37,24 @@ returns
 ```
 **POST /{server}/users**
 ```
-POST /wrsftims/users
 {
     {
         "name": "Roman Dmowski",
         "rank": "Sekcja IT"
     }
 }
-``````
+``` ```
 returns "", 201
 ```
 **PATCH /{server}/users/{id}**
 ```
-PATCH /wrsftims/users/1
 {
     {
         "name": "Karol Wojtyła",
         "rank": "GMD"
     }
 }
-``````
+``` ```
 returns
 {
     {
@@ -71,7 +65,6 @@ returns
 ```
 **DELETE /{server}/users/{id}**
 ```
-DELETE /wrsftims/users/1``````d
 returns "", 200
 ```
 
@@ -79,8 +72,6 @@ returns "", 200
 
 **Get /servers**
 ```
-GET /servers
-``````
 returns
 {
     {
@@ -97,23 +88,20 @@ returns
 }, 200
 ```
 
-**POST   /servers**
+**POST /servers**
 ```
-POST /servers
-``````
 returns
 "", 200
 ```
 
-**PATCH   /servers/{id}**
+**PATCH /servers/{id}**
 ```
-PATCH /servers/1
 {
     {
         "name": "Karol Wojtyła",
     }
 }
-``````
+``` ```
 returns
 {
     {
@@ -121,8 +109,7 @@ returns
     }
 }, 200
 ```
-**DELETE   /servers/{id}**
+**DELETE /servers/{id}**
 ```
-DELETE /servers/1``````d
 returns "", 200
 ```
