@@ -35,7 +35,6 @@ class UserModel(db.Model):
         'ServerModel', backref=db.backref('users', lazy=True))
 
     username = db.Column(db.String(32), nullable=False)
-    ranks = db.Column(db.List, nullable=False)
 
     def __repr__(self):
         return f'User(server ID = {UserModel.server_id} name = {UserModel.username}, ranks = {UserModel.ranks}'
@@ -53,6 +52,19 @@ user_update_args = reqparse.RequestParser()
 user_update_args.add_argument("server_id", type=int)
 user_update_args.add_argument("username", type=str)
 user_update_args.add_argument("ranks", type=list)
+
+
+class RankModel(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    client_id = db.Column(db.Integer, db.ForeignKey(
+        'UserModel.id'), nullable=False)
+    client = db.relationship(
+        'UserModel', backref=db.backref('ranks', lazy=True))
+    name = db.Column(db.String(128), nullable=False)
+
+    def __repr__(self):
+        return f'Rank(name = {RankModel.name}'
+
 
 server_resource_fields = {
     'id': fields.Integer,
@@ -120,6 +132,8 @@ class Users(Resource):
         args = user_post_args.parse_args()
         users_in_server = ServerModel.query.filer_by(id=serv_id)
         user = UserModel(username=args['username'], ranks=args['ranks'])
+        for item in args['ranks']:
+            user.ranks.append(item)
         users_in_server.users.append(user)
         db.session.add(users_in_server)
         db.session.commit()
@@ -153,3 +167,6 @@ class UsersWithId(Resource):
 
 
 api.add_resource(UsersWithId, endpoint="/<int:serv_id>/Users/<int:user_id>")
+
+if __name__ == "__main__":
+	app.run(debug=True)
