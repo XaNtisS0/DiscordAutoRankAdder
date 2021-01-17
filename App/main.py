@@ -8,8 +8,6 @@ api = Api(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 db = SQLAlchemy(app)
 
-db.create_all()
-
 
 class ServerModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -17,7 +15,7 @@ class ServerModel(db.Model):
 
     def __repr__(self):
         return f'Server(id = {ServerModel.id}, name = {ServerModel.name})'
-
+ 
 
 server_post_args = reqparse.RequestParser()
 server_post_args.add_argument('name', type=str, required=True)
@@ -169,4 +167,4 @@ class UsersWithId(Resource):
 api.add_resource(UsersWithId, endpoint="/<int:serv_id>/Users/<int:user_id>")
 
 if __name__ == "__main__":
-	app.run(debug=True)
+    app.run(debug=True)
