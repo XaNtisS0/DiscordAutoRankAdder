@@ -81,7 +81,9 @@ class Server(Resource):
         db.session.commit()
         return "", 201
     
-class ServerID(Resource):
+api.add_resource(Server, endpoint="/servers")
+
+class ServerWithId(Resource):
     @marshal_with(server_resource_fields)
     def patch(self, server_id):
         args = server_update_args.parse_args()
@@ -103,6 +105,7 @@ class ServerID(Resource):
         db.session.delete(result)
         return "", 200
 
+api.add_resource(ServerWithId, endpoint="/servers/<int:server_id>")
 
 class Users(Resource):
     @ marshal_with(user_resource_fields)
@@ -110,7 +113,7 @@ class Users(Resource):
         result = UserModel.query.filter_by(server_id=serv_id).all()
         return result, 200
 
-    def post(self, serv_id, user_id):
+    def post(self, serv_id):
         args = user_post_args.parse_args()
         users_in_server = ServerModel.query.filer_by(id=serv_id)
         user = UserModel(username=args['username'], ranks=args['ranks'])
@@ -118,3 +121,5 @@ class Users(Resource):
         db.session.add(users_in_server)
         db.session.commit()
         return "", 201
+
+api.add_resource(Users, endpoint="/<int:serv_id>/Users")
