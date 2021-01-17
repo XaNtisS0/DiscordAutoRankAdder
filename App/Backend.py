@@ -144,3 +144,5 @@ class UsersWithId(Resource):
             abort(404,message="User with this id does not exist.")
         db.session.delete(result)
         return "", 200
+
+api.add_resource(UsersWithId, endpoint="/<int:serv_id>/Users/<int:user_id>")
