@@ -43,9 +43,9 @@ POST /wrsftims/users
 ``````d
 returns "", 201
 ```
-***PUT   /{server}/users/{id}***
+***PATH   /{server}/users/{id}***
 ```css
-PUT /wrsftims/users/1
+PATH /wrsftims/users/1
 {
     {
         "name": "Karol Wojtyła",
@@ -77,11 +77,22 @@ returns
 {
     {
         "name": "WRS ftims",
-        "picture": "{url}"
+        "picture": "{url}",
+        "users": [
+            
+        ]
     },
     {
         "name": "Seria Turniejów WRS WFTIMS 2",
         "picture": "{url}"
     }
 }, 200
+```
+
+***POST   /servers***
+```css
+POST /servers
+``````d
+returns
+"", 200
 ```
