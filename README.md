@@ -6,7 +6,9 @@
 - user authentication
 - log in via discord
 
-***Users***
+
+#Users
+
 
 **Get /{server}/users**
 ```
@@ -68,7 +70,9 @@ returns
 returns "", 200
 ```
 
-***Servers***
+
+#Servers
+
 
 **Get /servers**
 ```
