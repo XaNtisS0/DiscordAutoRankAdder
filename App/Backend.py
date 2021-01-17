@@ -20,7 +20,10 @@ class ServerModel(db.Model):
 
 
 server_post_args = reqparse.RequestParser()
-server_post_args.add_argument('name')
+server_post_args.add_argument('name', type=str, required=True)
+
+server_update_args = reqparse.RequestParser()
+server_update_args.add_argument('name', type=str)
 
 
 class UserModel(db.Model):
@@ -71,6 +74,27 @@ class Server(Resource):
         result = ServerModel.query.all()
         return result, 200
 
+    def post(self):
+        args = server_post_args.parse_args()
+        server = ServerModel(name=args['name'])
+        db.session.add(server)
+        db.session.commit()
+        return "", 201
+    
+class ServerID(Resource):
+    @marshal_with(server_resource_fields)
+    def patch(self, server_id):
+        args = server_update_args.parse_args()
+        result = ServerModel.query.filter_by(id = server_id).first()
+        if not result:
+            abort(404, message="Server with this id does not exist.")
+        if args['name']:
+            result.name = args['name']
+        else:
+            abort(406, message="You have to provide name.")
+        db.session.commit()
+        return result, 200
+
 
 class Users(Resource):
     @ marshal_with(user_resource_fields)
@@ -84,3 +108,5 @@ class Users(Resource):
         user = UserModel(username=args['username'], ranks=args['ranks'])
         users_in_server.users.append(user)
         db.session.add(users_in_server)
+        db.session.commit()
+        return "", 201
