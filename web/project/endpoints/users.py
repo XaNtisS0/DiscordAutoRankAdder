@@ -78,7 +78,7 @@ class UserEndpoint(Resource):
             ranks = Rank.query.filter_by(user_id=user_id).all()
             ranks_array = [rank.name for rank in ranks]
             if set(args['ranks']) != set(ranks_array):
-                db.session.delete(ranks)
+                Rank.query.filter_by(user_id=user_id).delete()
                 for rank in args['ranks']:
                     item = Rank(name=rank, user=user)
                     db.session.add(item)
