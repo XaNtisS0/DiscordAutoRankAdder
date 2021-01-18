@@ -37,6 +37,7 @@ returns
     }
 ] , 200
 ```
+
 **GET /{server}/users/{id}**
 ```
 returns
@@ -51,6 +52,7 @@ returns
     }
 ] , 200
 ```
+
 **POST /{server}/users**
 ```
 {
@@ -65,6 +67,7 @@ returns
 
 returns "", 201
 ```
+
 **PATCH /{server}/users/{id}**
 ```
 {
@@ -85,6 +88,7 @@ returns
     ]
 }, 200
 ```
+
 **DELETE /{server}/users/{id}**
 ```
 returns "", 200
@@ -139,10 +143,12 @@ returns
     "logging": true
 }, 200
 ```
+
 **DELETE /servers/{id}**
 ```
 returns "", 200
 ```
+
 **or**
 ```
 {
