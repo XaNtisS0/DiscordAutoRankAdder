@@ -22,11 +22,20 @@ server_post_args.add_argument('logging', type=bool, required=True)
 server_delete_args = reqparse.RequestParser()
 server_delete_args.add_argument('name', type=str)
 
+server_get_args = reqparse.RequestParser()
+server_get_args.add_argument('name', type=str)
+
+
 class ServersEndpoint(Resource):
     @marshal_with(server_resource_fields)
     def get(self):
-        result = Server.query.all()
-        return result, 200
+        args = server_get_args.parse_args()
+        if args['name']:
+            result = Server.query.filter_by(name=args['name']).all()
+            return result, 200
+        if not args:
+            result = Server.query.all()
+            return result, 200
 
     def post(self):
         args = server_post_args.parse_args()
