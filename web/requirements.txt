@@ -2,3 +2,4 @@ discord
 flask
 flask_restful
 flask_sqlalchemy
+psycopg2-binary

@@ -1,6 +1,8 @@
 from flask_restful import Resource, reqparse, abort, fields, marshal_with
 
-from project.app import db
+from project.app import db, api
+
+from project.models.server import Server
 
 server_resource_fields = {
 	'id': fields.Integer,
@@ -17,7 +19,7 @@ server_post_args.add_argument('name', type=str, required=True)
 server_post_args.add_argument('logging', type=bool, required=True)
 
 
-class Server(Resource):
+class ServerEndpoint(Resource):
 	@marshal_with(server_resource_fields)
 	def patch(self, server_id):
 		args = server_update_args.parse_args()
@@ -40,7 +42,7 @@ class Server(Resource):
 		return "", 200
 
 
-class Servers(Resource):
+class ServersEndpoint(Resource):
 	@marshal_with(server_resource_fields)
 	def get(self):
 		result = Server.query.all()
@@ -52,3 +54,7 @@ class Servers(Resource):
 		db.session.add(server)
 		db.session.commit()
 		return "", 201
+
+
+api.add_resource(ServersEndpoint, "/servers")
+api.add_resource(ServerEndpoint, "/servers/<int:server_id>")
