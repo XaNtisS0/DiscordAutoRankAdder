@@ -8,13 +8,15 @@
 - set some ranks to be automaticly added to users added to the server (front-end)
 
 
-##  Users
+# Run with Docker Compose
+
+## Users
 
 
 **Get /{server}/users**
 ```
 returns
-{
+[
     {
         "id": 0
         "name": "User1",
@@ -31,12 +33,12 @@ returns
             "name": "rank1"
         ]
     }
-} , 200
+] , 200
 ```
 **GET /{server}/users/{id}**
 ```
 returns
-{
+[
    {
         "id": 1,
         "name": "User1",
@@ -45,7 +47,7 @@ returns
             "name": "rank2"
         ]
     }
-} , 200
+] , 200
 ```
 **POST /{server}/users**
 ```
@@ -64,25 +66,21 @@ returns "", 201
 **PATCH /{server}/users/{id}**
 ```
 {
-    {
-        "ranks": [
-            "name": "rank3",
-            "name": "rank2"
-        ]
-    }
+    "ranks": [
+        "name": "rank3",
+        "name": "rank2"
+    ]
 }
 
 
 
 returns
 {
-    {
-        "name": "User1",
-        "ranks": [
-            "name": "rank3",
-            "name": "rank2"
-        ]
-    }
+    "name": "User1",
+    "ranks": [
+        "name": "rank3",
+        "name": "rank2"
+    ]
 }, 200
 ```
 **DELETE /{server}/users/{id}**
@@ -113,6 +111,13 @@ returns
 
 **POST /servers**
 ```
+{
+    "name": "Test Server 1",
+    "logging": false
+}
+
+
+
 returns
 "", 201
 ```

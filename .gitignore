@@ -1,3 +1,4 @@
 .env
 App/database.db
 .vscode
+.idea
