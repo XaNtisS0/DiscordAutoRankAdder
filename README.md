@@ -124,8 +124,7 @@ returns
 
 
 
-returns
-"", 201
+returns "", 201
 ```
 
 **PATCH /servers/{id}**
