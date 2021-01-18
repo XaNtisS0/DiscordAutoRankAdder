@@ -4,9 +4,4 @@ App/database.db
 .idea
 test.md
 DiscordAutoRanga.session.sql
-/web/__pycache__
-/web/project/__pycache__
-/web/project/endpoints/__pycache__
-/web/project/migrations/__pycache__
-/web/project/migrations/versions/__pycache__
-/web/project/models/__pycache__
+__pycache__

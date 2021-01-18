@@ -1,9 +1,13 @@
 import discord
 import os
+import requests
 
 intents = discord.Intents.default()
 intents.members = True
 client = discord.Client(intents=intents)
+
+api_server = ""
+webpage = ""
 
 #Permisions:
 #	Manage roles
@@ -29,12 +33,37 @@ async def on_ready():
 @client.event
 async def on_member_join(member):
 	#Get server name
+	guild = member.guild
 	#Create or get members-admin role
+	admin_role = discord.utils.get(guild.roles, 'members-admin')
+	if not admin_role:
+		await guild.create_role('members-admin')
 	#Get api/servers/
+	get_servers = requests.get(api_server + '/servers/').json()
+	#Get channel with name="bot-log" for logging
+	logging_channel = discord.utils.get(guild.channels, name="bot-log")
+	server = {}
 	#Check which server is the one we want and save info
-	#If user wants logging -> Get channel with name="bot-log" for logging
+	for i, d in enumerate(get_servers):
+		if d['name'] == guild.name:
+			server = get_servers[i]
+	if not server:
+		await logging_channel.send(f'Go to {webpage} to add server to bot database.')
 	#Get api/{server_id}/users
+	server_id = server['id']
+	get_users = requests.get(f'{api_server}/{server_id}/users').json()
 	#If loged in user is on the list of users then give him the roles from list
+	db_user = {}
+	for user in get_users:
+		if user['username'] == member.name:
+			db_user = user
+	user_ranks = db_user['ranks']
+	for rank in user_ranks:
+		if rank not in guild.ranks:
+			await guild.create_role(rank)
+			await member.add_roles(discord.utils.get(guild.roles, name=rank))
+		else:
+			await member.add_roles(discord.utils.get(guild.roles, name=rank))
 	#If not then log info about unwanted user with mention to members admin and the unwanted user. 
 	#	(f'{moderator_role.mention} Unknown user: {str(member.mention)}')
 	#	send information to user that he need to contact administrator to change username in whitelist or manually add role
