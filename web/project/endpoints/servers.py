@@ -19,6 +19,20 @@ server_post_args.add_argument('name', type=str, required=True)
 server_post_args.add_argument('logging', type=bool, required=True)
 
 
+class ServersEndpoint(Resource):
+    @marshal_with(server_resource_fields)
+    def get(self):
+        result = Server.query.all()
+        return result, 200
+
+    def post(self):
+        args = server_post_args.parse_args()
+        server = Server(name=args['name'], logging=args['logging'])
+        db.session.add(server)
+        db.session.commit()
+        return "", 201
+
+
 class ServerEndpoint(Resource):
     @marshal_with(server_resource_fields)
     def patch(self, server_id):
@@ -40,20 +54,6 @@ class ServerEndpoint(Resource):
         db.session.delete(result)
         db.session.commit()
         return "", 200
-
-
-class ServersEndpoint(Resource):
-    @marshal_with(server_resource_fields)
-    def get(self):
-        result = Server.query.all()
-        return result, 200
-
-    def post(self):
-        args = server_post_args.parse_args()
-        server = Server(name=args['name'], logging=args['logging'])
-        db.session.add(server)
-        db.session.commit()
-        return "", 201
 
 
 api.add_resource(ServersEndpoint, "/servers")
