@@ -18,19 +18,21 @@
 returns
 [
     {
-        "id": 0
-        "name": "User1",
+        "id": 1,
+        "server_id": 1,
+        "username": "first user",
         "ranks": [
-            "name": "rank1",
-            "name": "rank2"
+            "rank3",
+            "rank2"
         ]
     },
     {
-        "id": 1
-        "name": "User2",
+        "id": 2,
+        "server_id": 1,
+        "username": "second user",
         "ranks": [
-            "name": "rank3",
-            "name": "rank1"
+            "rank1",
+            "rank2"
         ]
     }
 ] , 200
@@ -52,7 +54,7 @@ returns
 **POST /{server}/users**
 ```
 {
-    "name": "User1",
+    "username": "first user",
     "ranks": [
         "rank1",
         "rank2"
@@ -127,7 +129,9 @@ returns
 {
     "name": "TestServer1"
 }
-``` ```
+
+
+
 returns
 {
     "id": 1,
@@ -137,5 +141,15 @@ returns
 ```
 **DELETE /servers/{id}**
 ```
+returns "", 200
+```
+**or**
+```
+{
+    "name": "TestServer1"
+}
+
+
+
 returns "", 200
 ```

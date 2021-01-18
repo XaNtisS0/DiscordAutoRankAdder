@@ -19,6 +19,9 @@ server_post_args.add_argument('name', type=str, required=True)
 server_post_args.add_argument('logging', type=bool, required=True)
 
 
+server_delete_args = reqparse.RequestParser()
+server_delete_args.add_argument('name', type=str)
+
 class ServersEndpoint(Resource):
     @marshal_with(server_resource_fields)
     def get(self):
@@ -42,16 +45,22 @@ class ServerEndpoint(Resource):
             abort(404, message="Server with this id does not exist.")
         if args['name']:
             result.name = args['name']
-        else:
-            abort(406, message="You have to provide name.")
+        if args['logging']:
+            result.logging = args['logging']
         db.session.commit()
         return result, 200
 
     def delete(self, server_id):
-        result = Server.query.filter_by(id=server_id).first()
-        if not result:
-            abort(404, message="Server with this id does not exist.")
-        db.session.delete(result)
+        args = server_delete_args.parse_args()
+        result = {}
+        if args['name']:
+            result = Server.query.filter_by(name=args['name']).delete()
+            if not result:
+                abort(404, message="Server with this name does not exist.")
+        elif not args:
+            result = Server.query.filter_by(id=server_id).first().delete()
+            if not result:
+                abort(404, message="Server with this id does not exist.")
         db.session.commit()
         return "", 200
 
