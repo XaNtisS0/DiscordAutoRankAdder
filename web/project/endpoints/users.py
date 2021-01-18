@@ -34,17 +34,12 @@ class UsersEndpoint(Resource):
 
     def post(self, serv_id):
         args = user_post_args.parse_args()
-        # server = Server.query.get(serv_id)
-        user = User(server_id=serv_id, username=args['username'])
-        # for rank in args['ranks']:
-        # 	item = Rank(name=rank)
-        # 	user.ranks.append(item)
-        # server.users.append(user)
-        # db.session.add(server)
+        server = Server.query.get(serv_id)
+        user = User(server=server, username=args['username'])
         db.session.add(user)
         db.session.commit()
         for rank in args['ranks']:
-            item = Rank(name=rank, user_id=user.id)
+            item = Rank(name=rank, user=user)
             db.session.add(item)
         db.session.commit()
         return "", 201
