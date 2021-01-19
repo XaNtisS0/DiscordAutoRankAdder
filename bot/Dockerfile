@@ -10,12 +10,12 @@ ENV PYTHONUNBUFFERED 1
 
 # install psycopg2 dependencies
 RUN apk update \
-    && apk add python3-dev
+    && apk add gcc python3-dev musl-dev libc-dev libffi-dev openssl-dev libxml2-dev libxslt-dev
 
 # install dependencies
 RUN pip install --upgrade pip
-COPY ./requirements.txt /usr/src/app/requirements.txt
+COPY ./requirements.txt /usr/src/bot/requirements.txt
 RUN pip install -r requirements.txt
 
 # copy project
-COPY . /usr/src/app/
+COPY . /usr/src/bot/

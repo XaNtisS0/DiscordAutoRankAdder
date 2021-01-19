@@ -11,11 +11,9 @@ then
     echo "PostgreSQL started"
 fi
 
-cd ./project/
+sleep 5
 
 flask db migrate
 flask db upgrade
-
-cd ..
 
 exec "$@"
