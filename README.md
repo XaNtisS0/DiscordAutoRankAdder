@@ -115,6 +115,25 @@ returns
 ], 200
 ```
 
+**OR**
+
+```
+{
+    "name": "My new server"
+}
+
+
+
+returns
+[
+    {
+        "id": 1,
+        "name": "My new server",
+        "logging": true
+    },
+]
+```
+
 **POST /servers**
 ```
 {
@@ -148,7 +167,7 @@ returns
 returns "", 200
 ```
 
-**or**
+**OR**
 ```
 {
     "name": "TestServer1"

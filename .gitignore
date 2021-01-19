@@ -4,3 +4,4 @@ App/database.db
 .idea
 test.md
 DiscordAutoRanga.session.sql
+__pycache__

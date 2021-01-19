@@ -22,6 +22,12 @@ services:
       - POSTGRES_USER=twojastara
       - POSTGRES_PASSWORD=twojastara
       - POSTGRES_DB=app_dev
+  #bot:
+  #  build: ./bot
+  #  command: python discord_bot.py
+  #  volumes: 
+  #    - ./bot/:/usr/src/bot
+    
 
 volumes:
   postgres_data:
