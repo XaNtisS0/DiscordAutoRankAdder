@@ -1,18 +1,14 @@
 import os
+from dotenv import load_dotenv, find_dotenv
 
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask_restful import Api
-from .config import Config
-from flask_script import Manager
-from flask_migrate import Migrate, MigrateCommand
+from src.app import create_app
 
+load_dotenv(find_dotenv())
 
-app = Flask(__name__)
-app.secret_key = os.getenv("APP_SECRET_KEY", "totallyrandomkey")
-app.config.from_object(Config)
+env_name = os.getenv('FLASK_ENV')
+app = create_app(env_name)
 
-api = Api(app)
-
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+if __name__ == '__main__':
+  port = os.getenv('PORT')
+  # run app
+  app.run(host='0.0.0.0', port=port)

@@ -1,6 +1,6 @@
 from flask_restful import Resource, reqparse, abort, fields, marshal_with
 
-from ..manage import db, api
+from ..run import db, api
 
 from ..models.server import Server
 

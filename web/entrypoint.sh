@@ -11,9 +11,6 @@ then
     echo "PostgreSQL started"
 fi
 
-sleep 5
-
-flask db migrate
-flask db upgrade
+python manage.py db migrate
 
 exec "$@"
